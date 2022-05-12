@@ -66,12 +66,12 @@ function showHeadSection(){
 // This function shows the body of the webpage
 
 function showBodySection($page){
-	echo "<body>" . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
+	echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
 	showHeader($page);
     showMenu(); 
     showContent($page); 
     showFooter();
-	echo "</body>" . PHP_EOL;
+	echo '</div></body>' . PHP_EOL;
 };
 
 // This fucntion shows the end of the webpage. 
@@ -106,7 +106,7 @@ function showContent($page){
 		  showHomeContent();
 		  break;
 		case "about" :
-		  require("about.html");
+		  require("about.php");
 		  showAboutContent();
 		  break;
 		case "contact" :
@@ -128,6 +128,8 @@ function showFooter(){
 	 </p>
    </footer>";
 };
+
+
 
 
 	

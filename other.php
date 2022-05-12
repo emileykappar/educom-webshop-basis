@@ -3,7 +3,7 @@
 // This function shows the OTHER content.
 
 function ShowOtherContent(){
-	echo "Sorry this page doesn't exist.";
+	echo "<h2>Sorry this page doesn't exist.</h2>";
 };
 
 ?>
