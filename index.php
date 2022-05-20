@@ -59,7 +59,7 @@ function beginDocument(){
 function showHeadSection(){
 	echo '<head> 
     <title> Emiley\'s website </title>
-	<link rel="stylesheet" href="css\stylesheet.css">
+	<link rel="stylesheet" href="CSS\stylesheet.css">
   </head>';
 };
 
@@ -87,15 +87,17 @@ function showHeader($page){
 };
 
 // This function shows the navigation menu:
-
 function showMenu(){
 	echo '
 	<ul class="navBar">
         <li> <a href="index.php?page=home"> Home </a> </li>
         <li> <a href="index.php?page=about"> About </a> </li>
         <li> <a href="index.php?page=contact"> Contact </a> </li>
+		<li> <a href="index.php?page=register"> Registreren </a> </li>
+		<li> <a href="index.php?page=login"> Inloggen </a> </li>
       </ul>';
 }; 
+
 
 // This function shows the content per page. 
 
@@ -112,6 +114,14 @@ function showContent($page){
 		case "contact" :
 		  require("contact.php");
 		  showContactContent();
+		  break;
+		  case "register" :
+		  require("register.php");
+		  showRegisterContent();
+		  break;
+		case "login" :
+		  require("login.php");
+		  showLoginContent();
 		  break;
 		case "other" :
 		  require("other.php");
