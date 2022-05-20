@@ -12,9 +12,8 @@ h1{ /* Changes the header style*/
   text-align: center;
   color: black;
 }
-p{ /* Changes the font size and color of all the parapraphs*/
-	font-size: 12px;
-	color: dimgrey;
+body{
+	background-color: white;
 }
 ul.navBar{ /* Changes style of the MENU from unordered list to navigation bar with lightblue background and black rounded borders*/
 	list-style-type: none;
