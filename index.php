@@ -88,15 +88,21 @@ function showHeader($page) {
 
 // This function shows the navigation menu:
 function showMenu() {
-	echo '
-	<ul class="navBar">
-        <li> <a href="index.php?page=home"> Home </a> </li>
-        <li> <a href="index.php?page=about"> About </a> </li>
-        <li> <a href="index.php?page=contact"> Contact </a> </li>
-		<li> <a href="index.php?page=register"> Registreren </a> </li>
-		<li> <a href="index.php?page=login"> Log in </a> </li>
-      </ul>';
-}; 
+   echo '<ul class="navBar">' . PHP_EOL;
+   showMenuItem("home", " Home ");
+   showMenuItem("about", " About ");
+   showMenuItem("contact", " Contact ");
+   showMenuItem("register", " Registreren ");
+   showMenuItem("login", " Log in ");
+   echo '</ul>';
+ };
+ 
+// This function shows the menu items
+function showMenuItem($link, $label) {
+	$link = array("home.php", "about.php", "contact.php",
+	"register.php", "login.php");
+	$label = array("Home", "About", "Contact", "Registreren", "Log in");
+};
 
 // This function shows the content per page. 
 
