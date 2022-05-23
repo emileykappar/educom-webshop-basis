@@ -99,13 +99,12 @@ function showMenu() {
  
 // This function shows the menu items
 function showMenuItem($link, $label) {
-	$link = array("home.php", "about.php", "contact.php",
-	"register.php", "login.php");
-	$label = array("Home", "About", "Contact", "Registreren", "Log in");
+	echo '<li> ';
+	echo '<a href="index.php?page=' . $link . '">' . $label . '</a>';
+	echo '</li>';
 };
 
 // This function shows the content per page. 
-
 function showContent($page){
 	switch ($page){
 		case "home" :
@@ -152,8 +151,5 @@ function showFooter(){
 };
 
 
-
-
-	
-
 ?>
+
