@@ -1,30 +1,46 @@
 <?php
-function showLoginContent(){
+
+function showLoginContent() {
+  $data = validateLogin();
+  if ($data['valid']) {
+	  showHomeContent();
+  } else { 
+    showLoginForm($data);
+  };
+
+};
+
+
+function validateLogin() {
 	
 // Create the variables that will be used
 $username = $password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
 $usernameError = $passwordError = ""; // Empty variables as they will be declared later in the function
 $valid = false;
 
+$username = testInput(getPostVar("username")); 
+$password = testInput(getPostVar("password"));
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-	  if (empty($_POST["username"])){ 
+	  if (empty($username)){
 		  $usernameError="Gebruikersnaam verplicht";
-	  } else {
-		  $username = test_input($_POST["username"]); 
-	  }; 
-	  if (empty($_POST["password"])){
+	  } if (empty($password)){
 		  $passwordError="Wachtwoord verplicht";
-	  } else {
-		  $password = test_input($_POST["password"]);
 	  };
 	  
-	  if (empty($usernameError) && empty($passwordError)){
+// This if/else statement checks if all the errors are empty and shows if the form is valid or not.
+if (empty($usernameError) && empty($passwordError)){
       $valid = true;
 	} else {
       $valid = false;
 	};
+  };
+
+return array("username" => $username, "usernameError" => $usernameError,
+"password" => $password, "passwordError" => $passwordError, "valid" => $valid);
 };
 
+function showLoginForm($data) { 
 echo '
 <!-- The login form is created: -->
 
@@ -35,14 +51,14 @@ echo '
 <p><span class="error">* Verplicht </span></p>
 
 <label for="username">Gebruikersnaam:</label>
-    <input type="text" name="username" value= "' . $username . '">
-	<span class="error">* ' . $usernameError . ' </span>
+    <input type="text" name="username" value="' . $data['username'] . '">
+	<span class="error">* ' . $data['usernameError'] . ' </span>
 	
 	<br>
 	
     <label for="password">Wachtwoord:</label>
-    <input type="password" name="password" value= "'.$password.'">
-	<span class="error">* '.$passwordError.' </span>
+    <input type="password" name="password" value="'. $data['password'] .'">
+	<span class="error">* '. $data['passwordError'] .' </span>
 	
 	<br>
 	<br>
@@ -51,14 +67,4 @@ echo '
 	<input type="hidden" value="home" id="page" name="page">';
 	
 	};
-
-// Create function that does all the checking
-
-function test_input($data){
-    $data= trim($data); // strips unnecessary characters
-	$data = stripslashes($data); //  removes backslashes from the user input data
-  return $data;
-  };
-
-	
 ?>

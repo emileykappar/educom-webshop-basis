@@ -14,6 +14,13 @@ function validateContact() {
 $gender = $name = $email = $tel = $commPref = $message ="";
 $genderError = $nameError = $emailError = $telError = $commPrefError = $messageError ="";
 $valid= false;
+
+$gender = testInput(getPostVar("gender"));
+$name = testInput(getPostVar("name"));
+$email = testInput(getPostVar("email"));
+$tel = testInput(getPostVar("tel"));
+$commPref = testInput(getPostVar("communicatievoorkeur"));
+$message = testInput(getPostVar("message"));
 	
 // This code checks whether the form has been submitted using the $_SERVER["REQUEST_METHOD"].
 // If the REQUEST_METHOD is POST, then the form has been submitted.
@@ -21,37 +28,26 @@ $valid= false;
 // The if else statements are linked to each $_POST variable. 
 // checks if the $_POST variable is empty (with the PHP empty() function) if so, a requirements message is printed.
 
+
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {	
 	  if (empty($gender)){
 	      $genderError ="Keuze verplicht";
-	  } else { 
-	      $gender = testInput(getPostVar["gender"]);
-	  }
-	  if (empty($name)){
+	  } if 
+	     (empty($name)){
 		  $nameError ="Naam is verplicht";
-	  } else {
-		  $name = testInput(getPostVar["name"]);
-	  }
-	  if (empty($email)){
+	  } if 
+		  (empty($email)){
 		  $emailError ="E-mail is verplicht";
-	  } else {
-		  $email = testInput(getPostVar["email"]);
-	  }
-	  if (empty($tel)){
+	  } if 
+		  (empty($tel)){
 		  $telError ="Telefoonnummer is verplicht";
-	  } else {
-		  $tel = testInput(getPostVar["tel"]);
-	  }
-	  if (empty($communicatievoorkeur)){
+	  } if 
+		  (empty($commPref)){
 		  $commPrefError ="Communicatievoorkeur is verplicht";
-	  } else {
-		  $commPref = testInput(getPostVar["communicatievoorkeur"]);
-	  }
-	  if (empty($message)){
+	  } if 
+		  (empty($message)){
 		  $messageError ="Je bent je vraag vergeten te stellen!";
-	  } else {
-		  $message = testInput(getPostVar["message"]);	  
-	  } 
+	  };
 	  
 // This if/else statement checks if all the errors are empty and shows if the form is valid or not.
 	  
@@ -63,9 +59,10 @@ $valid= false;
 	  }
 	};
 	
+
 return array("gender" => $gender, "genderError" => $genderError, "name" => $name, "nameError" => $nameError,
-"email" => $email, "emailError" => $emailError, "tel" => $tel, "telError" => $telError,"commPref" => $commPref, 
-"commPrefError" => $commPrefError, "message" => $message, "messageError" => $messageError, "valid" => $valid);
+"email" => $email, "emailError" => $emailError, "tel" => $tel, "telError" => $telError,"communicatievoorkeur" => $commPref, 
+"communicatievoorkeurError" => $commPrefError, "message" => $message, "messageError" => $messageError, "valid" => $valid);
 
 }; 
 
@@ -112,15 +109,15 @@ if needed (that is if the user tries to submit the form without filling out the 
 			
 	echo '<p><label>Communicatievoorkeur:</label></p> <!-- Option for communication preference: email or phone -->
 	 
-       <input type="radio" name="communicatievoorkeur" ' .
-	   ($data['commPref'] == "email" ? "checked" : "" ) . ' value="email"> 
+       <input type="radio" name="communicatievoorkeur" id=commEmail ' .
+	   ($data['communicatievoorkeur'] == "email" ? "checked" : "") . ' value="email"> 
 	   <label>Email</label> 
 	   
-	   <input type="radio" name="communicatievoorkeur" ' . 
-	($data['commPref'] == "tel" ? "checked" : "" ) . ' value="tel">
+	   <input type="radio" name="communicatievoorkeur" id=commTel ' . 
+       ($data['communicatievoorkeur'] == "tel" ? "checked" : "")	   . ' value="tel">
          <label>Telefoon</label> 
 
-         <span class="error">* ' . $data['commPrefError'] . ' </span>
+         <span class="error">* ' . $data['communicatievoorkeurError'] . ' </span>
          
 		 <br>
 		 <br> ';
@@ -149,17 +146,10 @@ function showContactThanks($data){  // Show the next part only when $valid is tr
     <span>Naam: '. $data['name'] .' </span><br>
     <span>Email: '. $data['email'].' </span><br>
 	<span>Telefoonnummer: '. $data['tel'] .'</span><br>
-	<span>Cummunicatievoorkeur: '. $data['commPref'] .' </span><br>
+	<span>Communicatievoorkeur: '. $data['communicatievoorkeur'] .' </span><br>
     <span>Je bericht: '. $data['message'] .' </span> ';
      }; // End of conditional showing   
 
-// create a function that will do all the checking for us named test_input() function
-function testInput($data) {
-	$data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-return $data;
-};
 
 	
  

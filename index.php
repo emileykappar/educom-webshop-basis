@@ -11,7 +11,7 @@ showResponsePage($page);
 
 // functions are defined:
 
-function getRequestedPage(){ // Retrieves requested page with POST(getPostVar) or GET(getUrlVar) method 
+function getRequestedPage() { // Retrieves requested page with POST(getPostVar) or GET(getUrlVar) method 
 	$requested_type = $_SERVER["REQUEST_METHOD"];
 	if ($requested_type == "POST"){
 		$requested_page = getPostVar("page", "home");
@@ -22,7 +22,7 @@ function getRequestedPage(){ // Retrieves requested page with POST(getPostVar) o
 
 // Show the requested page 
 
-function showResponsePage($page){
+function showResponsePage($page) {
 	beginDocument(); // no $page included as it stays the same on every page!
 	showHeadSection();
 	ShowBodySection($page); // $page included, to show the body section of the right page.
@@ -31,32 +31,32 @@ function showResponsePage($page){
 
 // If variables are set in $array and $key, return these variables otherwise return the default variable $default. 
 
-function getArrayVar($array, $key, $default=""){
+function getArrayVar($array, $key, $default="") {
 	return isset($array[$key]) ? $array[$key] : $default; // If variables are set in $array and $key, return these variables otherwise return the default variable $default. 
 };
 
 // 
 
-function getPostVar($key, $default=""){
+function getPostVar($key, $default="") {
 	return getArrayVar($_POST, $key, $default);
 };
 
 // 
 
-function getUrlVar($key, $default=""){
+function getUrlVar($key, $default="") {
 	return getArrayVar($_GET, $key, $default);
 };
 
 // This function starts the document:
 
-function beginDocument(){
+function beginDocument() {
 	echo "<!DOCTYPE html>
 	<html>";
 };
 
 // This function shows the head section of the document
 
-function showHeadSection(){
+function showHeadSection() {
 	echo '<head> 
     <title> Emiley\'s website </title>
 	<link rel="stylesheet" href="CSS\stylesheet.css">
@@ -65,7 +65,7 @@ function showHeadSection(){
 
 // This function shows the body of the webpage
 
-function showBodySection($page){
+function showBodySection($page) {
 	echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
 	showHeader($page);
     showMenu(); 
@@ -75,29 +75,28 @@ function showBodySection($page){
 };
 
 // This fucntion shows the end of the webpage. 
-function endDocument(){
+function endDocument() {
 	echo "</html>";
 };
 
 // This function shows the header info
 // Needs the $page variable included as it is different for each webpage
 
-function showHeader($page){
+function showHeader($page) {
 	echo " <h1> Welkom op mijn website! </h1>";     
 };
 
 // This function shows the navigation menu:
-function showMenu(){
+function showMenu() {
 	echo '
 	<ul class="navBar">
         <li> <a href="index.php?page=home"> Home </a> </li>
         <li> <a href="index.php?page=about"> About </a> </li>
         <li> <a href="index.php?page=contact"> Contact </a> </li>
 		<li> <a href="index.php?page=register"> Registreren </a> </li>
-		<li> <a href="index.php?page=login"> Inloggen </a> </li>
+		<li> <a href="index.php?page=login"> Log in </a> </li>
       </ul>';
 }; 
-
 
 // This function shows the content per page. 
 
@@ -130,8 +129,15 @@ function showContent($page){
 	}
 };
 
-// This function shows the footer
+// create a function that will do all the checking of the data for us in the forms
+function testInput($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+	};
 
+// This function shows the footer
 function showFooter(){
 	echo "<footer> <!-- Creates the footer -->
      <p> &copy; 2022, Emiley Kappar
