@@ -15,13 +15,6 @@ $gender = $name = $email = $tel = $commPref = $message ="";
 $genderError = $nameError = $emailError = $telError = $commPrefError = $messageError ="";
 $valid= false;
 
-$gender = testInput(getPostVar("gender"));
-$name = testInput(getPostVar("name"));
-$email = testInput(getPostVar("email"));
-$tel = testInput(getPostVar("tel"));
-$commPref = testInput(getPostVar("communicatievoorkeur"));
-$message = testInput(getPostVar("message"));
-  
 // This code checks whether the form has been submitted using the $_SERVER["REQUEST_METHOD"].
 // If the REQUEST_METHOD is POST, then the form has been submitted.
 
@@ -29,7 +22,15 @@ $message = testInput(getPostVar("message"));
 // checks if the $_POST variable is empty (with the PHP empty() function) if so, a requirements message is printed.
 
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {  
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $gender = testInput(getPostVar("gender"));
+    $name = testInput(getPostVar("name"));
+    $email = testInput(getPostVar("email"));
+    $tel = testInput(getPostVar("tel"));
+    $commPref = testInput(getPostVar("communicatievoorkeur"));
+    $message = testInput(getPostVar("message"));
+  
     if (empty($gender)){
         $genderError ="Keuze verplicht";
     } if 

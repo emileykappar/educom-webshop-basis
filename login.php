@@ -18,10 +18,13 @@ $username = $password = ""; // Empty variables as they will be declared/filled i
 $usernameError = $passwordError = ""; // Empty variables as they will be declared later in the function
 $valid = false;
 
-$username = testInput(getPostVar("username")); 
-$password = testInput(getPostVar("password"));
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+  
+    $username = testInput(getPostVar("username")); 
+    $password = testInput(getPostVar("password"));
+
     if (empty($username)){
       $usernameError="Gebruikersnaam verplicht";
     } if (empty($password)){
