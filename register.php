@@ -2,9 +2,9 @@
 function showRegisterContent() {
   $data = validateRegister();
   if ($data['valid']) {
-    addUser($data);
+	  showLoginPage();
   } else {
-    showRegisterForm($data);
+	  showRegisterForm($data);
   }
 };
   
@@ -20,22 +20,33 @@ $valid = false;
 // If validation is incorrect, an error message will appear. 
 
   if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    
+	  
+// Testing of input
   $name = testInput(getPostVar("name"));
   $email = testInput(getPostVar("email"));
   $password = testInput(getPostVar("password"));
   $r_password = testInput(getPostVar("r_password"));
-
+  
     if (empty($name)){  // If "name" is empty (not filled in) show error message "Name required"
       $nameError="Naam verplicht";
-    } if (empty($email)){
+    } if 
+	  (empty($email)){
       $emailError="E-mail verplicht";
-    } if (empty($password)){
+    } if 
+	  (empty($password)){
       $passwordError="Wachtwoord verplicht";
-    } if (empty($r_password) || ($password !== $r_password)){ // checks if password and repeated password are the same
+    } if 
+	  (empty($r_password) || ($password !== $r_password)){ // checks if password and repeated password are the same
       $r_passwordError="Wachtwoord niet ingevuld of komt niet overeen";
     };
-      
+	
+/// Add user input  to the user.txt file 
+		$myfile = fopen("USERS/users.txt", "a");
+		$userData = $email .'|'. $name .'|'. $password;
+		fwrite($myfile, $userData . PHP_EOL);
+		fclose($myfile);
+		
+		
 // This if/else statement checks if all the errors are empty and therefore if the form is valid or not.  
     if (empty($nameError) && empty($emailError) && empty($passwordError) && empty($r_passwordError)){
       $valid = true;
@@ -43,21 +54,17 @@ $valid = false;
       $valid = false;
   }
   };
-      
+  
 return array("name" => $name, "nameError" => $nameError, "email" => $email, "emailError" => $emailError,
 "password" => $password, "passwordError" =>$passwordError, "r_password" => $r_password,
 "r_passwordError" => $r_passwordError, "valid" => $valid);
-
+  
 };
-
-function addUser($data){
-$myfile = fopen("USERS\users.txt", "a");
-$userData = $data['email'] . "|" .  $data['name'] . "|" . $data['password'];
-fwrite($myfile, $userData . PHP_EOL);
-fclose($myfile);
-};
-
-
+      
+function showLoginPage() {
+echo 'Hellooo';
+    }; 
+	
 function showRegisterForm($data) { // Show the next part only when $valid is false
   echo '
     <!-- The register form is created: -->
@@ -93,8 +100,8 @@ function showRegisterForm($data) { // Show the next part only when $valid is fal
   <input type="hidden" id="page" name="page" value="register" > 
   
   </form> ';
+};
   
-    }; 
 
 
 ?>
