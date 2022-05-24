@@ -1,3 +1,12 @@
-[email]|[name]|[password]
+email|name|password
 coach@man-kind.nl|Geert Weggemans|halt!
-emileykappar@gmail.com|emiley kappar|hoi123
+emileykappar@gmail.com|Emiley Kappar|123
+aa@ee.nl|Emiley Kappar|1234
+ara@ee.nl|Emiley Kappar|1234
+arfa@ee.nl|Emiley Kappar|1234
+ffr@ssdf.nl|ff|3333
+ffrr@ssdf.nl|ff|3333
+sdss@sdsd.com|sdfd|1111
+gd@hgf.hg|gdg|123
+gdd@hgf.hg|gdg|123
+emileykappar1@gmail.com|emiley|123
