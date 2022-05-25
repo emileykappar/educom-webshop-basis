@@ -4,10 +4,12 @@
 // This is the main application
 
 // variable $page is defined to bring user to the right webpage with GET or POST request
-
 $page = getRequestedPage();
 $data = processRequest($page);
 showResponsePage($data);
+
+// Set session variables for login and logout
+
 
 
 // functions are defined:
@@ -44,7 +46,7 @@ function processRequest($page) {
 			require_once("login.php");
 			$data = validateLogin();
 			if ($data['valid']) {
-				doLoginUser($data['name']);
+				doLoginUser($data['regEmail']);
 				$page = "home";
 			}
 			break;
@@ -116,7 +118,7 @@ function endDocument() {
 // Needs the $page variable included as it is different for each webpage
 
 function showHeader($page) {
-	echo " <h1> Welkom op mijn website! - ".$page."</h1>";     
+	echo " <h1> Welkom op mijn website! - ".$page. " </h1>";     
 };
 
 // This function shows the navigation menu:

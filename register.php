@@ -49,7 +49,7 @@ function validateRegister() {
         } 
         
           
-      // This if/else statement checks if all the errors are empty and therefore if the form is valid or not.  
+        // This if/else statement checks if all the errors are empty and therefore if the form is valid or not.  
         if (empty($nameError) && empty($emailError) && empty($passwordError) && empty($r_passwordError)){
             $valid = true;
         } else {
