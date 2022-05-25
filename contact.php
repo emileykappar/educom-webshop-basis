@@ -1,13 +1,4 @@
 <?php
-function showContactContent() {
-  $data = validateContact();
-  if ($data['valid']) {
-    showContactThanks($data);
-  } else {
-    showContactForm($data);
-  }
-};
-
 function validateContact() {    
 
 // Create variables that will be used
@@ -37,8 +28,8 @@ $valid= false;
        (empty($name)){
       $nameError ="Naam is verplicht";
     } if 
-      (empty($email)){
-      $emailError ="E-mail is verplicht";
+      (empty($email) || (!filter_var($email, FILTER_VALIDATE_EMAIL))){
+      $emailError ="E-mail is niet of verkeerd ingevoerd";
     } if 
       (empty($tel)){
       $telError ="Telefoonnummer is verplicht";

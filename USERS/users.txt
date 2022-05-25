@@ -1,4 +1,5 @@
 email|name|password
+hoi@gmail.com|Hoi|123
+em@gmail.com|Em|123
+koek@pak.nl|Koek|123
 coach@man-kind.nl|Geert Weggemans|halt!
-hoi@gmail.com|Em|123
-em1@gmail.com|Em|123
