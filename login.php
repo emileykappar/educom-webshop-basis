@@ -1,12 +1,18 @@
 <?php
 
+
 function validateLogin() {
     
     // Create the variables that will be used
     $regEmail = $regPassword = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
     $regEmailError = $regPasswordError = ""; // Empty variables as they will be declared later in the function
-    $userName = $userPassword = "";
+    $username = $userPassword = $name = "";
     $valid = false;
+    
+    // Set session variables for login and logout
+    $_SESSION["username"] = $regEmail;
+    $_SESSION["password"] = $regPassword;
+    $_SESSION["name"] = $name;
 
    if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	
@@ -30,13 +36,14 @@ function validateLogin() {
             $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.                        
             
             if ($regEmail == $parts[0] && $regPassword == $parts[2]) { 
-                $userName = $parts[0];
+                $username = $parts[0];
                 $userPassword = $parts[2];
+                $name = $parts[1];
             }      
         }        
         fclose($myfile);
 
-        if ($userName != $regEmail) {                
+        if ($username != $regEmail) {                
         $regEmailError = "Gebruiker niet bekend";            
         } 
         else if ($regPassword != $userPassword) {
@@ -49,11 +56,12 @@ function validateLogin() {
     } else {
               $valid = false;
     }
+    // echo $_SESSION["username"] = $regEmail;;
     }
    }
    
     return array("regEmail" => $regEmail, "regEmailError" => $regEmailError, "regPassword" => $regPassword, 
-                 "regPasswordError" => $regPasswordError, "valid" => $valid);
+                 "regPasswordError" => $regPasswordError, "name" => $name, "valid" => $valid);
 }
 
 function doLoginUser($data) {
@@ -89,4 +97,6 @@ echo '
   <input type="hidden" id="page" name="page" value="login">';
   
   };
+  
+    
 ?>

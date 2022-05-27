@@ -1,15 +1,15 @@
 
 <?php
 
-// This is the main application
+//////////////////// This is the main application //////////////////////
+
+// start session
+session_start();
 
 // variable $page is defined to bring user to the right webpage with GET or POST request
 $page = getRequestedPage();
 $data = processRequest($page);
-showResponsePage($data);
-
-// Set session variables for login and logout
-
+showResponsePage($data, $page);
 
 
 // functions are defined:
@@ -48,8 +48,10 @@ function processRequest($page) {
 			if ($data['valid']) {
 				doLoginUser($data['regEmail']);
 				$page = "home";
-			}
+            } 
 			break;
+        
+            
 				
     }
     $data['page'] = $page;
@@ -57,10 +59,10 @@ function processRequest($page) {
 }
 // Show the requested page 
 
-function showResponsePage($data) {
+function showResponsePage($data, $page) {
 	beginDocument(); // no $page included as it stays the same on every page!
 	showHeadSection();
-	ShowBodySection($data); // $page included, to show the body section of the right page.
+	ShowBodySection($data, $page); // $page included, to show the body section of the right page.
 	endDocument();
 };
 
@@ -100,10 +102,14 @@ function showHeadSection() {
 
 // This function shows the body of the webpage
 
-function showBodySection($data) {
+function showBodySection($data, $page) {
 	echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
 	showHeader($data['page']);
-    showMenu(); 
+    if ($page == "login" && $data['valid'])  {
+        ShowLogoutMenu($data, $page);
+    } else {
+        showMenu();
+    } 
     showContent($data); 
     showFooter();
 	echo '</div></body>' . PHP_EOL;
@@ -129,6 +135,16 @@ function showMenu() {
 	showMenuItem("contact", " Contact ");
 	showMenuItem("register", " Registreren ");
 	showMenuItem("login", " Log in ");
+	echo '</ul>';
+};
+
+// the navigation menu when a user is logged in
+function ShowLogoutMenu($data, $page) {
+    echo '<ul class="navBar">' . PHP_EOL;
+	showMenuItem("home", " Home ");
+	showMenuItem("about", " About ");
+	showMenuItem("contact", " Contact ");
+	showMenuItem("home", " Log uit ");
 	echo '</ul>';
 };
  
