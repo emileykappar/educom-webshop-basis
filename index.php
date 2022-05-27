@@ -1,7 +1,7 @@
 
 <?php
 
-//////////////////// This is the main application //////////////////////
+//////////////////// This is the main application websop DATABASE //////////////////////
 
 // start session
 session_start();
