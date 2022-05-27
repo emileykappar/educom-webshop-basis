@@ -26,7 +26,7 @@ function validateLogin() {
         } else {
         while(!feof($myfile)) { // as long as end of file has not been reached            
             $string = fgets($myfile); // $string reads the user input per line            
-            echo var_dump($string);            
+            // echo var_dump($string);            
             $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.                        
             
             if ($regEmail == $parts[0] && $regPassword == $parts[2]) { 
