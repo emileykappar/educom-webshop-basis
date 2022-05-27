@@ -6,6 +6,7 @@
 // start session
 session_start();
 
+
 // variable $page is defined to bring user to the right webpage with GET or POST request
 $page = getRequestedPage();
 $data = processRequest($page);
@@ -46,13 +47,10 @@ function processRequest($page) {
 			require_once("login.php");
 			$data = validateLogin();
 			if ($data['valid']) {
-				doLoginUser($data['regEmail']);
+				doLoginUser($data['email']);
 				$page = "home";
             } 
-			break;
-        
-            
-				
+			break;	
     }
     $data['page'] = $page;
     return $data;
@@ -87,6 +85,8 @@ function getUrlVar($key, $default="") {
 // This function starts the document:
 
 function beginDocument() {
+    
+    
 	echo "<!DOCTYPE html> 
 	      <html>";
 };
@@ -106,7 +106,8 @@ function showBodySection($data, $page) {
 	echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
 	showHeader($data['page']);
     if ($page == "login" && $data['valid'])  {
-        ShowLogoutMenu($data, $page);
+        $logoutName = $data['name'];
+        ShowLogoutMenu($data, $page, $logoutName);
     } else {
         showMenu();
     } 
@@ -124,7 +125,7 @@ function endDocument() {
 // Needs the $page variable included as it is different for each webpage
 
 function showHeader($page) {
-	echo " <h1> Welkom op mijn website! - ".$page. " </h1>";     
+	echo " <h1> Welkom op mijn website <br> Je bent je nu op de  ".$page. " pagina! </h1>";     
 };
 
 // This function shows the navigation menu:
@@ -139,12 +140,12 @@ function showMenu() {
 };
 
 // the navigation menu when a user is logged in
-function ShowLogoutMenu($data, $page) {
+function ShowLogoutMenu($data, $page, $logoutName) {
     echo '<ul class="navBar">' . PHP_EOL;
 	showMenuItem("home", " Home ");
 	showMenuItem("about", " About ");
 	showMenuItem("contact", " Contact ");
-	showMenuItem("home", " Log uit ");
+	showMenuItem("home", " Log uit - $logoutName");
 	echo '</ul>';
 };
  

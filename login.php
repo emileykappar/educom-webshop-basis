@@ -4,14 +4,14 @@
 function validateLogin() {
     
     // Create the variables that will be used
-    $regEmail = $regPassword = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
-    $regEmailError = $regPasswordError = ""; // Empty variables as they will be declared later in the function
+    $email = $password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
+    $emailError = $passwordError = ""; // Empty variables as they will be declared later in the function
     $username = $userPassword = $name = "";
     $valid = false;
     
     // Set session variables for login and logout
-    $_SESSION["username"] = $regEmail;
-    $_SESSION["password"] = $regPassword;
+    $_SESSION["username"] = $email;
+    $_SESSION["password"] = $password;
     $_SESSION["name"] = $name;
 
    if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -21,21 +21,21 @@ function validateLogin() {
     fgets($myfile);
 
     // testing the input
-    $regEmail = testInput(getPostVar("regEmail")); 
-    $regPassword = testInput(getPostVar("regPassword"));
+    $email = testInput(getPostVar("email")); 
+    $password = testInput(getPostVar("password"));
     
-    if (empty($regEmail)) {
-        $regEmailError="Gebruikersnaam verplicht";
+    if (empty($email)) {
+        $emailError="Gebruikersnaam verplicht";
     } 
-    if (empty($regPassword)) {
-        $regPasswordError="Wachtwoord verplicht";
+    if (empty($password)) {
+        $passwordError="Wachtwoord verplicht";
         } else {
         while(!feof($myfile)) { // as long as end of file has not been reached            
             $string = fgets($myfile); // $string reads the user input per line            
             // echo var_dump($string);            
             $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.                        
             
-            if ($regEmail == $parts[0] && $regPassword == $parts[2]) { 
+            if ($email == $parts[0] && $password == $parts[2]) { 
                 $username = $parts[0];
                 $userPassword = $parts[2];
                 $name = $parts[1];
@@ -43,25 +43,25 @@ function validateLogin() {
         }        
         fclose($myfile);
 
-        if ($username != $regEmail) {                
-        $regEmailError = "Gebruiker niet bekend";            
+        if ($username != $email) {                
+        $emailError = "Gebruiker niet bekend";            
         } 
-        else if ($regPassword != $userPassword) {
-        $regPasswordError = "Wachtwoord niet ingevuld of incorrect";
+        else if ($password != $userPassword) {
+        $passwordError = "Wachtwoord niet ingevuld of incorrect";
         }
     
     // This if/else statement checks if all the errors are empty and shows if the form is valid or not.
-    if (empty($regEmailError) && empty($regPasswordError)){
+    if (empty($emailError) && empty($passwordError)){
               $valid = true;
     } else {
               $valid = false;
     }
-    // echo $_SESSION["username"] = $regEmail;;
+    // echo $_SESSION["username"] = $email;;
     }
    }
    
-    return array("regEmail" => $regEmail, "regEmailError" => $regEmailError, "regPassword" => $regPassword, 
-                 "regPasswordError" => $regPasswordError, "name" => $name, "valid" => $valid);
+    return array("email" => $email, "emailError" => $emailError, "password" => $password, 
+                 "passwordError" => $passwordError, "name" => $name, "valid" => $valid);
 }
 
 function doLoginUser($data) {
@@ -80,15 +80,15 @@ echo '
 <form method="POST" action="index.php">
 <p><span class="error">* Verplicht </span></p>
 
-<label for="regEmail">Gebruikersnaam:</label>
-    <input type="text" name="regEmail" value="' . $data['regEmail'] . '" title= "Gebruik je email als gebruikersnaam">
-  <span class="error">* ' . $data['regEmailError'] . ' </span>
+<label for="email">Gebruikersnaam:</label>
+    <input type="text" name="email" value="' . $data['email'] . '" title= "Gebruik je email als gebruikersnaam">
+  <span class="error">* ' . $data['emailError'] . ' </span>
   
   <br>
   
-    <label for="regPassword">Wachtwoord:</label>
-    <input type="password" name="regPassword" value="'. $data['regPassword'] .'">
-  <span class="error">* '. $data['regPasswordError'] .' </span>
+    <label for="password">Wachtwoord:</label>
+    <input type="password" name="password" value="'. $data['password'] .'">
+  <span class="error">* '. $data['passwordError'] .' </span>
   
   <br>
   <br>

@@ -1,6 +1,15 @@
 <?php 
+
+
+    
 // This function shows the HOME content.
 function showHomeContent(){
+    
+    // Set session variables for login and logout
+    $_SESSION["username"] = "";
+    $_SESSION["password"] = "";
+    $_SESSION["name"] = "";
+
   echo '<h2>Home pagina</h2>
         <hr>
       
@@ -11,6 +20,19 @@ function showHomeContent(){
       </p> ' ;
 };
 
+function stopSession() {
+    // destroy the session
+    session_destroy(); 
+    
+};
+
 ?>
 
 
+<!-- case "logout":
+            require_once("home.php");
+            $data = showHomeContent();
+            if (showMenuItem("home", " Log uit ") {
+                stopSession();
+            }
+            break; -->

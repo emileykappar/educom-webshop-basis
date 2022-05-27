@@ -6,6 +6,11 @@ function validateRegister() {
     $name = $email = $password = $r_password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
     $nameError = $emailError = $passwordError = $r_passwordError = ""; // Empty variables as they will be declared later in the function
     $valid = false;
+    
+    // Set session variables for login and logout
+    $_SESSION["username"] = $email;
+    $_SESSION["password"] = $password;
+    $_SESSION["name"] = $name;
 
     // If/else statement checks whether the form has been submitted using $_SERVER["REQUEST_METHOD"]
     // If the REQUEST_METHOD is POST, then the form has been submitted.

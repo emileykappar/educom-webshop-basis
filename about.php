@@ -1,6 +1,13 @@
 <?php
 
+    
 function showAboutContent(){     
+
+    // Set session variables for login and logout
+    $_SESSION["username"] = "";
+    $_SESSION["password"] = "";
+    $_SESSION["name"] = "";
+    
 echo '<h2>Over mij</h2>
       <hr>
      
