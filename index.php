@@ -4,17 +4,15 @@
 //////////////////// This is the main application websop DATABASE //////////////////////
 
 // start session
-session_start();
 
-
+require_once("session_manager.php");
 // variable $page is defined to bring user to the right webpage with GET or POST request
 $page = getRequestedPage();
 $data = processRequest($page);
-showResponsePage($data, $page);
+showResponsePage($data);
 
 
 // functions are defined:
-
 function getRequestedPage() { // Retrieves requested page with POST(getPostVar) or GET(getUrlVar) method 
 	$requested_type = $_SERVER["REQUEST_METHOD"];
 		if ($requested_type == "POST"){
@@ -36,31 +34,45 @@ function processRequest($page) {
             
         case "register":
             require_once("register.php");
+            require_once("user_service.php");
+            require_once("session_manager.php");
             $data = validateRegister();
+            doesEmailExist($email);
             if ($data['valid']) {
-                addUser($data);
+                storeUser($data);
                 $page = "login";
             }
             break;
 		
 		case "login":
 			require_once("login.php");
+            require_once("user_service.php");
+            require_once("session_manager.php");
+            
 			$data = validateLogin();
+            
 			if ($data['valid']) {
-				doLoginUser($data['email']);
+				doLoginUser($data['name']);
 				$page = "home";
             } 
-			break;	
+			break;
+        case "logout":
+            require_once("home.php");
+            require_once("user_service.php");
+            require_once("session_manager.php");
+            
+            doLogoutUser();
+            $page = "home";
     }
     $data['page'] = $page;
     return $data;
 }
 // Show the requested page 
 
-function showResponsePage($data, $page) {
+function showResponsePage($data) {
 	beginDocument(); // no $page included as it stays the same on every page!
 	showHeadSection();
-	ShowBodySection($data, $page); // $page included, to show the body section of the right page.
+	ShowBodySection($data); // $page included, to show the body section of the right page.
 	endDocument();
 };
 
@@ -102,15 +114,10 @@ function showHeadSection() {
 
 // This function shows the body of the webpage
 
-function showBodySection($data, $page) {
+function showBodySection($data) {
 	echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
 	showHeader($data['page']);
-    if ($page == "login" && $data['valid'])  {
-        $logoutName = $data['name'];
-        ShowLogoutMenu($data, $page, $logoutName);
-    } else {
-        showMenu();
-    } 
+    showMenu();
     showContent($data); 
     showFooter();
 	echo '</div></body>' . PHP_EOL;
@@ -134,21 +141,16 @@ function showMenu() {
 	showMenuItem("home", " Home ");
 	showMenuItem("about", " About ");
 	showMenuItem("contact", " Contact ");
-	showMenuItem("register", " Registreren ");
-	showMenuItem("login", " Log in ");
+    
+    if (isUserLoggedIn()) {
+        showMenuItem("logout", "Log uit " . getLoggedInUserName());
+        } else {
+        showMenuItem("register", " Registreren ");
+        showMenuItem("login", " Log in ");
+    }
 	echo '</ul>';
 };
 
-// the navigation menu when a user is logged in
-function ShowLogoutMenu($data, $page, $logoutName) {
-    echo '<ul class="navBar">' . PHP_EOL;
-	showMenuItem("home", " Home ");
-	showMenuItem("about", " About ");
-	showMenuItem("contact", " Contact ");
-	showMenuItem("home", " Log uit - $logoutName");
-	echo '</ul>';
-};
- 
 // This function shows the menu items
 function showMenuItem($link, $label) {
 	echo '<li> ';
@@ -188,6 +190,11 @@ function showContent($data){
 			require_once("login.php");
 			showLoginForm($data);
 			break;
+            
+        case "logout" :
+            require_once("home.php");
+            doLogoutUser();
+            break;
 			
 		case "other" :
 			require_once("other.php");

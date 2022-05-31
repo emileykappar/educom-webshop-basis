@@ -1,12 +1,5 @@
 email|name|password
-hoi@gmail.com|Hoi|123
-em@gmail.com|Em|123
-koek@pak.nl|Koek|123
-coach@man-kind.nl|Geert Weggemans|halt!
-dec@gmail.com|Declan|123
-dog@dog.nl|Echo|123
-piet@gmail.com|piet|123
+em@gmail.com|emiley|123
+em1@gmail.com|emiley|123
+dec@gmail.com|Dec|123
 jan@gmail.com|jan|123
-kees@gmail.com|kees|123
-appel@gmail.com|appel|123
-wijn@gmail.com|Wijn|123

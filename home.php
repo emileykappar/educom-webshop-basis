@@ -20,19 +20,5 @@ function showHomeContent(){
       </p> ' ;
 };
 
-function stopSession() {
-    // destroy the session
-    session_destroy(); 
-    
-};
 
 ?>
-
-
-<!-- case "logout":
-            require_once("home.php");
-            $data = showHomeContent();
-            if (showMenuItem("home", " Log uit ") {
-                stopSession();
-            }
-            break; -->

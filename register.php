@@ -19,7 +19,7 @@ function validateRegister() {
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Add user input  to the user.txt file if request method == post
-        $myfile = fopen("USERS/users.txt", "a+"); // opens the file to read or write data, read if user already exists and if not write the new useraccount data in the file.
+        
     
         // Testing of input
         $name =   testInput(getPostVar("name"));
@@ -32,17 +32,7 @@ function validateRegister() {
         } 
         if (empty($email) || (!filter_var($email, FILTER_VALIDATE_EMAIL))) {
             $emailError="E-mail niet ingevuld of format klopt niet";
-        } else {
-            while(!feof($myfile)) { // as long as end of file has not been reached, 
-                $string = fgets($myfile); // $string reads the user input per line
-                $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.
-                
-                if ($email == $parts[0]) {
-                    $emailError = "Email al in gebruik";
-                }        
-            } 
-            fclose($myfile);
-        }
+        } 
         if (empty($password)){
             $passwordError="Wachtwoord verplicht";
         } 
@@ -68,13 +58,6 @@ function validateRegister() {
   
 }
       
-function addUser($data) {
-    $myfile = fopen("USERS/users.txt", "a+");
-    
-    $userData = $data['email'] .'|'. $data['name'] .'|'. $data['password']; // $userData is received from user input and added to USERS/users.txt
-    fwrite($myfile, $userData . PHP_EOL);
-    fclose($myfile);
-    }; 
     
 function showRegisterForm($data) { // Show the next part only when $valid is false
   echo '
