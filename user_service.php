@@ -19,8 +19,7 @@ function authenticateUser($email, $password) {
                $string = fgets($myfile); // $string reads the user input per line            
                // echo var_dump($string);            
                $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.          
-var_dump($parts);            
-            
+           
                if ($email == $parts[0] && $password == trim($parts[2])) { 
                    return array ( "email" => $parts[0],
                    "password" => $parts[2],
