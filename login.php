@@ -1,5 +1,4 @@
 <?php
-
 function validateLogin() {
     
     // Create the variables that will be used
@@ -22,7 +21,7 @@ function validateLogin() {
         }
         $user = authenticateUser($email, $password);
         if (empty($user)) {                
-            $emailError = "Gebruiker niet bekend of Wachtwoord incorrect";
+            $emailError = "Gebruiker niet bekend of wachtwoord incorrect";
         } else {
             $name = $user['name'];
         }
