@@ -42,8 +42,10 @@ function validateRegister() {
         if ($r_password != $password) { // checks if password and repeated password are the same
             $r_passwordError="Wachtwoord komt niet overeen"; 
         } 
-        
-          
+        if (doesEmailExist($email)) { // this function is created in user_service, to check if email already exists in txt file.
+                   $emailError = "Email al in gebruik";
+        }
+
         // This if/else statement checks if all the errors are empty and therefore if the form is valid or not.  
         if (empty($nameError) && empty($emailError) && empty($passwordError) && empty($r_passwordError)){
             $valid = true;

@@ -4,8 +4,8 @@
 //////////////////// This is the main application websop DATABASE //////////////////////
 
 // start session
-
 require_once("session_manager.php");
+
 // variable $page is defined to bring user to the right webpage with GET or POST request
 $page = getRequestedPage();
 $data = processRequest($page);
@@ -35,9 +35,7 @@ function processRequest($page) {
         case "register":
             require_once("register.php");
             require_once("user_service.php");
-            require_once("session_manager.php");
             $data = validateRegister();
-            doesEmailExist($email);
             if ($data['valid']) {
                 storeUser($data);
                 $page = "login";
@@ -47,10 +45,7 @@ function processRequest($page) {
 		case "login":
 			require_once("login.php");
             require_once("user_service.php");
-            require_once("session_manager.php");
-            
 			$data = validateLogin();
-            
 			if ($data['valid']) {
 				doLoginUser($data['name']);
 				$page = "home";
@@ -59,8 +54,6 @@ function processRequest($page) {
         case "logout":
             require_once("home.php");
             require_once("user_service.php");
-            require_once("session_manager.php");
-            
             doLogoutUser();
             $page = "home";
     }

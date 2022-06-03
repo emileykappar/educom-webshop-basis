@@ -6,11 +6,9 @@
    $username = $userPassword = $name = "";
    $valid = false;
 
-////////////////////////////////////////////////// check if user exists in users.txt (FOR LOGIN FORM)
-
+// check if user exists in users.txt (FOR LOGIN FORM)
 function authenticateUser($email, $password) {
     
- 
    // read user input from user.txt when posted to see if account exists. 
    $myfile = fopen("USERS/users.txt", "r");
    fgets($myfile);
@@ -20,7 +18,7 @@ function authenticateUser($email, $password) {
                // echo var_dump($string);            
                $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.          
            
-               if ($email == $parts[0] && $password == trim($parts[2])) { 
+               if ($email == $parts[0] && $password == trim($parts[2])) { // The trim() function removes whitespace and other predefined characters from both sides of a string.
                    return array ( "email" => $parts[0],
                    "password" => $parts[2],
                    "name" => $parts[1]);
@@ -30,10 +28,9 @@ function authenticateUser($email, $password) {
            return null;
 };
 
-////////////////////////////////////////////////// check if email exists in users.txt (FOR REGISTER FORM)
+// check if email exists in users.txt (FOR REGISTER FORM)
 function doesEmailExist($email) {
-    
-   
+
     // opens the file to read or write data, read if user already exists and if not write the new useraccount data in the file.
     $myfile = fopen("USERS/users.txt", "a+"); 
     
@@ -42,10 +39,12 @@ function doesEmailExist($email) {
                 $parts = explode("|", $string); // $parts breaks string into array with explode function: easy to find specific parts in the file.
                 
                 if ($email == $parts[0]) {
-                    $emailError = "Email al in gebruik";
-                }        
+                    fclose($myfile);
+                    return true; // if $email is the same as email in user.txt, doesEmailExist will return as true;
+                }  
             } 
             fclose($myfile);
+            return false;
     
 };
 
@@ -56,6 +55,5 @@ function storeUser($data) {
     fwrite($myfile,  PHP_EOL . $userData);
     fclose($myfile);
 };
-
 
 ?>
