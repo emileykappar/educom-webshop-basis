@@ -30,7 +30,8 @@ function processRequest($page) {
             if ($data['valid']) {
                 $page = "thanks";
             }
-            break;
+            
+        break;
             
         case "register":
             require_once("register.php");
@@ -40,17 +41,19 @@ function processRequest($page) {
                 storeUser($data);
                 $page = "login";
             }
-            break;
+            
+        break;
         
         case "login":
             require_once("login.php");
-            require_once("user_service.php")
             $data = validateLogin();
             if ($data['valid']) {
                 doLoginUser($data['name']);
                 $page = "home";
             } 
-            break;
+            
+        break;
+        
         case "logout":
             require_once("home.php");
             require_once("user_service.php");
@@ -58,6 +61,13 @@ function processRequest($page) {
             $page = "home";
     }
     $data['page'] = $page;
+    $data['menu'] = array("home" => " Home ", "about" => " About ", "contact" => " Contact ");
+    if (isUserLoggedIn()) {
+        $data['menu']['logout'] = " Log uit - " . getLoggedInUserName() . " ";
+    } else {
+        $data['menu']['register'] = " Registreren ";
+        $data['menu']['login'] = " Log in ";
+    }
     return $data;
 }
 // Show the requested page 
@@ -110,7 +120,7 @@ function showHeadSection() {
 function showBodySection($data) {
     echo '<body> <div id="pageContainer">' . PHP_EOL; // PHP_EOL; The correct 'End Of Line' symbol for this platform. 
     showHeader($data['page']);
-    showMenu();
+    showMenu($data);
     showContent($data); 
     showFooter();
     echo '</div></body>' . PHP_EOL;
@@ -129,17 +139,10 @@ function showHeader($page) {
 };
 
 // This function shows the navigation menu:
-function showMenu() {
+function showMenu($data) {
     echo '<ul class="navBar">' . PHP_EOL;
-    showMenuItem("home", " Home ");
-    showMenuItem("about", " About ");
-    showMenuItem("contact", " Contact ");
-    
-    if (isUserLoggedIn()) {
-        showMenuItem("logout", "Log uit " . getLoggedInUserName());
-        } else {
-        showMenuItem("register", " Registreren ");
-        showMenuItem("login", " Log in ");
+    foreach($data['menu'] as $link => $label) {
+       showMenuItem($link, $label);
     }
     echo '</ul>';
 };

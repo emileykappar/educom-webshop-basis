@@ -1,11 +1,5 @@
 <?php
 
-// Create the variables that will be used
-   $email = $password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
-   $emailError = $passwordError = ""; // Empty variables as they will be declared later in the function
-   $username = $userPassword = $name = "";
-   $valid = false;
-
 // check if user exists in users.txt (FOR LOGIN FORM)
 function authenticateUser($email, $password) {
     

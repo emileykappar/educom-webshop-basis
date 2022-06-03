@@ -2,10 +2,10 @@
 function validateLogin() {
     
     // Create the variables that will be used
-    $email = $password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
-    $emailError = $passwordError = ""; // Empty variables as they will be declared later in the function
-    $username = $userPassword = $name = "";
+    $name = $email = $password = $r_password = ""; // Empty variables as they will be declared/filled in by the user that registers on the website 
+    $nameError = $emailError = $passwordError = $r_passwordError = $userError = ""; // Empty variables as they will be declared later in the function
     $valid = false;
+    
     
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         
@@ -19,21 +19,20 @@ function validateLogin() {
         if (empty($password)) {
             $passwordError="Wachtwoord verplicht";
         }
-        $user = authenticateUser($email, $password);
-        if (empty($user)) {                
-            $emailError = "Gebruiker niet bekend of wachtwoord incorrect";
-        } else {
-            $name = $user['name'];
-        }
-        
         // This if/else statement checks if all the errors are empty and shows if the form is valid or not.
         if (empty($emailError) && empty($passwordError)){
-                  $valid = true;
-        } else {
-                  $valid = false;
+            
+                require_once("user_service.php");
+                $user = authenticateUser($email, $password);
+                if (empty($user)) {                
+                    $emailError = "Gebruiker niet bekend of wachtwoord incorrect";
+                } else {
+                    $name = $user['name'];
+                    $valid = true;
+                }
         }
     }
-   
+
     return array("email" => $email, "emailError" => $emailError, "password" => $password, 
                  "passwordError" => $passwordError, "name" => $name, "valid" => $valid);
 };
@@ -64,7 +63,7 @@ echo '
     <button type="submit">Log in</button>
   <input type="hidden" id="page" name="page" value="login">';
   
-  };
+};
   
     
 ?>

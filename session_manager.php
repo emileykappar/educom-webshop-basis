@@ -1,6 +1,6 @@
 <?php
 
-// Set session variables for login and logout
+
 session_start();
 
 function doLoginUser($name) {
@@ -8,7 +8,6 @@ function doLoginUser($name) {
 };
 
 function isUserLoggedIn() {
-    
     return isset($_SESSION["login"]);
 };
 

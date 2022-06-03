@@ -44,14 +44,11 @@ $valid= false;
 // This if/else statement checks if all the errors are empty and shows if the form is valid or not.
     
     if (empty($genderError) && empty($nameError) && empty($emailError) && empty($telError)
-      && empty($commPrefError) && empty($messageError)){
+      && empty($commPrefError) && empty($messageError)) {
         $valid = true;
-    } else {
-        $valid = false;
     }
-  };
   
-
+  }
 return array("gender" => $gender, "genderError" => $genderError, "name" => $name, "nameError" => $nameError,
 "email" => $email, "emailError" => $emailError, "tel" => $tel, "telError" => $telError,"communicatievoorkeur" => $commPref, 
 "communicatievoorkeurError" => $commPrefError, "message" => $message, "messageError" => $messageError, "valid" => $valid);
